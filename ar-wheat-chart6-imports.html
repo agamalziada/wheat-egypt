@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>واردات القمح: سنوات ميلادية ومواسم تسويقية لا تُقرأ كسلسلة واحدة</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--blue:#378ADD;--coral:#D85A30;--teal:#1D9E75;--amber:#BA7517;--gray:#888780;--ink:#2c2c2a;--muted:#5f5e5a;--paper:#f1efe8;--rule:rgba(0,0,0,.1);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Tajawal",sans-serif;background:#fff;color:var(--ink);direction:rtl;}
+  #root{padding:clamp(12px,3vw,20px);}
+  .hdr{border-right:3px solid #D85A30;padding-right:10px;margin-bottom:10px;}
+  .tag{font-size:clamp(9px,2vw,10px);font-weight:700;letter-spacing:.06em;color:var(--gray);margin-bottom:2px;}
+  .title{font-size:clamp(13px,3.5vw,15px);font-weight:700;line-height:1.4;margin-bottom:2px;}
+  .subtitle{font-size:clamp(11px,2.5vw,12px);color:var(--muted);line-height:1.5;}
+  .callout{background:var(--paper);border-right:3px solid #D85A30;padding:8px 11px;font-size:clamp(11px,2.5vw,12px);color:var(--muted);line-height:1.6;margin:9px 0;font-style:italic;}
+  .source{font-size:clamp(9px,2vw,10px);color:var(--gray);margin-top:10px;line-height:1.5;}
+  .cards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .card{flex:1;min-width:min(100px,44%);border-radius:8px;padding:clamp(9px,2.5vw,12px) clamp(10px,3vw,13px);text-align:center;}
+  .card.wide{flex-basis:100%;}
+  .c-k{font-size:clamp(9px,2.2vw,10px);color:var(--muted);margin-bottom:3px;line-height:1.4;}
+  .c-v{font-size:clamp(19px,5.2vw,25px);font-weight:800;line-height:1.15;}
+  .c-u{font-size:clamp(9px,2vw,10px);color:var(--gray);margin-top:2px;line-height:1.45;}
+  .c-d{display:inline-block;font-size:clamp(8px,1.9vw,9px);font-weight:700;color:var(--gray);border:1px solid var(--rule);border-radius:10px;padding:1px 7px;margin-top:5px;}
+  .chart{position:relative;width:100%;}
+  .note{margin-top:10px;border-right:3px solid #D85A30;padding:9px 12px;border-radius:6px 0 0 6px;background:#faece7;}
+  .note p{font-size:clamp(11px,2.8vw,12px);color:#993C1D;line-height:1.6;}
+  .dark{margin-top:10px;background:#2c2c2a;border-radius:7px;padding:9px 12px;}
+  .dark p{font-size:clamp(11px,2.8vw,12px);color:rgba(255,255,255,.82);line-height:1.6;}
+  .dark strong{color:#F0997B;}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 10px;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;font-size:clamp(9px,2.2vw,10px);color:var(--muted);}
+  .legend i{width:10px;height:10px;border-radius:2px;display:inline-block;flex-shrink:0;}
+  .tl-row{display:flex;gap:10px;align-items:stretch;}
+  .tl-date{flex-shrink:0;text-align:center;width:clamp(58px,16vw,78px);padding-top:6px;}
+  .tl-date span{font-size:clamp(9px,2.2vw,10px);font-weight:700;display:block;line-height:1.3;}
+  .tl-axis{flex-shrink:0;width:10px;display:flex;flex-direction:column;align-items:center;padding-top:9px;}
+  .tl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .tl-line{width:2px;flex:1;background:var(--rule);margin-top:3px;}
+  .tl-body{flex:1;background:var(--paper);border-radius:6px;padding:7px 10px;margin-bottom:8px;}
+  .tl-body p{font-size:clamp(10px,2.5vw,11px);line-height:1.6;}
+  .cols{display:flex;gap:12px;flex-wrap:wrap;}
+  .col{flex:1;min-width:min(240px,100%);}
+  .col-h{font-size:clamp(10px,2.5vw,11px);font-weight:800;margin-bottom:8px;padding-bottom:5px;border-bottom:2px solid var(--rule);}
+  .rows{display:flex;flex-direction:column;gap:6px;}
+  .row{border-radius:7px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--paper);}
+  .row .r-k{font-size:clamp(10px,2.5vw,11px);font-weight:700;line-height:1.45;}
+  .row .r-s{font-size:clamp(9px,2.2vw,10px);color:var(--muted);line-height:1.45;}
+  .row .r-v{font-size:clamp(10px,2.5vw,11px);font-weight:800;white-space:nowrap;}
+  .pill-list{display:flex;flex-wrap:wrap;gap:5px;}
+  .pill-list span{font-size:clamp(9px,2.2vw,10px);border-radius:12px;padding:3px 9px;line-height:1.5;}
+  @media(prefers-color-scheme:dark){
+    :root{--ink:#d3d1c7;--muted:#b4b2a9;--paper:#2c2c2a;--rule:rgba(255,255,255,.12);}
+    body{background:#1a1a18;}
+    .card,.row{background:#2c2c2a!important;}
+    .note{background:#3a2620;}
+    .note p{color:#F0997B;}
+    .dark{background:#000;}
+  }
+</style>
+</head>
+<body>
+<div id="root">
+  <div class="hdr">
+    <p class="tag">زاوية ثالثة · إنفوجرافيك ⑥ من ⑥</p>
+    <p class="title">واردات القمح: سنوات ميلادية ومواسم تسويقية لا تُقرأ كسلسلة واحدة</p>
+    <p class="subtitle">بالمليون طن، بحسب المصدر والفترة المرجعية</p>
+  </div>
+  <div class="callout">رقم السنة الميلادية ورقم الموسم التسويقي ليسا سلسلة متجانسة، والتوقع الموسمي ليس نتيجة نهائية مكتملة</div>
+<script>
+var Z3=(function(){
+  var dk=matchMedia("(prefers-color-scheme:dark)").matches;
+  var F="Tajawal",RTL=true;
+  var C={tc:dk?"#b4b2a9":"#5f5e5a",gc:dk?"rgba(255,255,255,.08)":"rgba(0,0,0,.07)",ink:dk?"#d3d1c7":"#2c2c2a",
+    teal:dk?"#5DCAA5":"#1D9E75",amber:dk?"#FAC775":"#BA7517",coral:dk?"#F0997B":"#D85A30",blue:dk?"#85B7EB":"#378ADD",gray:dk?"#b4b2a9":"#888780",bg:dk?"#1a1a18":"#fff"};
+  var tip={backgroundColor:dk?"#2c2c2a":"#fff",borderColor:dk?"rgba(255,255,255,.1)":"rgba(0,0,0,.08)",borderWidth:1,titleColor:C.ink,bodyColor:C.tc,padding:10,titleFont:{family:F},bodyFont:{family:F},rtl:RTL,textDirection:RTL?"rtl":"ltr"};
+  var vl={id:"vl",afterDatasetsDraw:function(ch,a,o){if(!o||!o.fmt)return;var x=ch.ctx;x.save();x.font="700 11px "+F;x.fillStyle=C.ink;
+    var hz=ch.options.indexAxis==="y";
+    if(o.stackTotal){var meta0=ch.getDatasetMeta(ch.data.datasets.length-1);meta0.data.forEach(function(el,j){var tot=0;ch.data.datasets.forEach(function(ds){tot+=ds.data[j]||0;});
+      x.textBaseline="middle";x.textAlign=RTL?"right":"left";x.fillText(o.fmt(tot,j),el.x+(RTL?-6:6),el.y);});x.restore();return;}
+    ch.data.datasets.forEach(function(ds,i){var m=ch.getDatasetMeta(i);if(m.hidden)return;m.data.forEach(function(el,j){var t=o.fmt(ds.data[j],j);
+      if(hz){x.textBaseline="middle";x.textAlign=RTL?"right":"left";x.fillText(t,el.x+(RTL?-6:6),el.y);}
+      else{x.textAlign="center";x.textBaseline="bottom";x.fillText(t,el.x,el.y-4);}});});x.restore();}};
+  var ctr={id:"ctr",afterDraw:function(ch,a,o){if(!o||!o.l1)return;var m=ch.getDatasetMeta(0);if(!m.data.length)return;var e=m.data[0];var x=ch.ctx;x.save();
+    x.textAlign="center";x.fillStyle=C.ink;x.font="800 20px "+F;x.textBaseline="bottom";x.fillText(o.l1,e.x,e.y+4);
+    x.font="400 11px "+F;x.fillStyle=C.tc;x.textBaseline="top";x.fillText(o.l2||"",e.x,e.y+7);x.restore();}};
+  Chart.register(vl,ctr);
+  Chart.defaults.font.family=F;Chart.defaults.color=C.tc;
+  return {C:C,tip:tip,RTL:RTL,F:F,n:function(v){return Number(v).toLocaleString("en-US");}};
+})();
+</script>
+<div class="legend"><span><i style="background:#BA7517"></i>سنة ميلادية: «العربية Business»، 30 ديسمبر 2025</span><span><i style="background:#378ADD"></i>موسم تسويقي، توقع: وزارة الزراعة الأميركية، 28 سبتمبر 2026</span></div>
+<div class="chart" style="height:clamp(180px,46vw,210px)"><canvas id="c"></canvas></div>
+<p class="col-h" style="margin-top:12px">من يستورد؟ تقديرات د. نادر نور الدين، المستشار السابق لوزير التموين (فبراير 2026)</p>
+<div class="cards" style="margin-bottom:0px">
+  <div class="card" style="background:#edf7f3"><p class="c-k">جهاز مستقبل مصر: قمح التموين والخبز المدعوم</p><p class="c-v" style="color:#1D9E75">~5</p><p class="c-u">ملايين طن سنويًا</p></div>
+  <div class="card" style="background:#f1efe8"><p class="c-k">القطاع الخاص: احتياجات السوق</p><p class="c-v" style="color:#5f5e5a">+7.5</p><p class="c-u">مليون طن</p></div>
+</div>
+<div class="note"><p>منذ أواخر 2024 انتقل دور رئيسي في الاستيراد الحكومي إلى جهاز مستقبل مصر، وما زالت الهيئة العامة للسلع التموينية طرفًا مشتريًا في اتفاق «الظاهرة» للقمح المستورد (أغسطس 2026)</p></div>
+<script>
+(function(){var C=Z3.C,tip=Z3.tip,RTL=Z3.RTL,F=Z3.F,n=Z3.n;
+new Chart(document.getElementById("c"),{type:"bar",
+ data:{labels:[["2024","سنة ميلادية"],["2025","سنة ميلادية"],["2026/2027","موسم تسويقي (توقع)"]],datasets:[{data:[14.2,13.2,12],backgroundColor:[C.amber,C.amber,C.blue+"99"],borderColor:[C.amber,C.amber,C.blue],borderWidth:[0,0,2],borderDash:[0,0,5],borderRadius:6,maxBarThickness:110}]},
+ options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:20}},animation:{duration:1000,easing:"easeOutQuart",delay:function(c){return c.dataIndex*180;}},
+ plugins:{legend:{display:false},tooltip:Object.assign({},tip,{callbacks:{label:function(c){return " "+c.raw+" مليون طن";}}}),vl:{fmt:function(v){return v.toFixed(1);}}},
+ scales:{x:{reverse:RTL,ticks:{color:C.tc,font:{size:11}},grid:{display:false},border:{color:C.gc}},
+ y:{position:RTL?"right":"left",min:0,max:16,ticks:{color:C.tc,font:{size:10}},grid:{color:C.gc},border:{display:false}}}}});
+})();
+</script>
+  <p class="source">المصدر: «العربية Business»، 30 ديسمبر 2025؛ وزارة الزراعة الأميركية، 28 سبتمبر 2026؛ زاوية ثالثة، 4 فبراير 2026</p>
+</div>
+<script>
+(function(){
+  function notify(){var h=document.getElementById("root").offsetHeight;window.parent.postMessage({type:"chartResize",height:h},"*");}
+  setTimeout(notify,1400);window.addEventListener("resize",notify);
+  try{new ResizeObserver(function(){setTimeout(notify,80);}).observe(document.body);}catch(e){}
+})();
+</script>
+</body></html>
