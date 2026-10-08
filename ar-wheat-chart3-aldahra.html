@@ -20,6 +20,10 @@
   .cards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
   .card{flex:1;min-width:min(100px,44%);border-radius:8px;padding:clamp(9px,2.5vw,12px) clamp(10px,3vw,13px);text-align:center;}
   .card.wide{flex-basis:100%;}
+  .cards.g3{display:grid;grid-template-columns:repeat(3,1fr);}
+  .cards.g2{display:grid;grid-template-columns:repeat(2,1fr);}
+  .cards.g3 .card,.cards.g2 .card{min-width:0;}
+  @media(max-width:560px){.cards.g3{grid-template-columns:repeat(2,1fr);}}
   .c-k{font-size:clamp(9px,2.2vw,10px);color:var(--muted);margin-bottom:3px;line-height:1.4;}
   .c-v{font-size:clamp(19px,5.2vw,25px);font-weight:800;line-height:1.15;}
   .c-u{font-size:clamp(9px,2vw,10px);color:var(--gray);margin-top:2px;line-height:1.45;}
@@ -68,8 +72,8 @@
     <p class="title">«الظاهرة» في مصر بأرقامها المعلنة</p>
     <p class="subtitle">إفصاحات للشركة في تواريخ ونطاقات مختلفة، لا تُجمع كحصيلة موسم واحد</p>
   </div>
-  <div class="callout">القمح المزروع في مزارع الشركة المصرية يورَّد بالجنيه وبالسعر الرسمي، بحسب مصدر الشركة لـ«العربية Business»</div>
-<div class="cards" style="margin-bottom:4px">
+  <div class="callout">القمح المزروع في مزارع الشركة المصرية يورَّد بالجنيه وبالسعر الرسمي، بحسب مصدر الشركة لـ«العربية Business»&rlm;</div>
+<div class="cards g3" style="margin-bottom:4px">
   <div class="card" style="background:#edf7f3"><p class="c-k">محفظة الأراضي</p><p class="c-v" style="color:#1D9E75">67,000</p><p class="c-u">فدان، منها أكثر من 40,000 فدان مروية</p><span class="c-d">نوفمبر 2024</span></div>
   <div class="card" style="background:#eef4fb"><p class="c-k">المزارع</p><p class="c-v" style="color:#378ADD">4</p><p class="c-u">في توشكى وشرق العوينات والصالحية</p><span class="c-d">نوفمبر 2024</span></div>
   <div class="card" style="background:#fdf6e8"><p class="c-k">الاستثمارات المعلنة</p><p class="c-v" style="color:#BA7517">+250</p><p class="c-u">مليون دولار منذ بدء النشاط</p><span class="c-d">نوفمبر 2024</span></div>
@@ -78,7 +82,7 @@
   <div class="card" style="background:#f1efe8"><p class="c-k">الطاقة الشمسية</p><p class="c-v" style="color:#5f5e5a">20</p><p class="c-u">ميجاوات</p><span class="c-d">نوفمبر 2024</span></div>
 </div>
 <div class="dark"><p>اتفاق «أدكس» بسقف يصل إلى 500 مليون دولار على خمس سنوات يخص <strong>القمح المستورد</strong>، لا محصول الأراضي المصرية، والقيمة سقف للبرنامج لا مبلغ ثبت صرفه</p></div>
-  <p class="source">المصدر: بيان «الظاهرة»، نوفمبر 2024؛ «العربية Business»، 6 يوليو 2026؛ مكتب أبوظبي للصادرات «أدكس»، أغسطس 2023</p>
+  <p class="source">المصدر: بيان «الظاهرة»، نوفمبر 2024؛ «العربية Business»&rlm;، 6 يوليو 2026؛ مكتب أبوظبي للصادرات «أدكس»، أغسطس 2023</p>
 </div>
 <script>
 (function(){

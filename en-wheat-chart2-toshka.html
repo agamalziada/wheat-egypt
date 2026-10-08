@@ -20,6 +20,10 @@
   .cards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
   .card{flex:1;min-width:min(100px,44%);border-radius:8px;padding:clamp(9px,2.5vw,12px) clamp(10px,3vw,13px);text-align:center;}
   .card.wide{flex-basis:100%;}
+  .cards.g3{display:grid;grid-template-columns:repeat(3,1fr);}
+  .cards.g2{display:grid;grid-template-columns:repeat(2,1fr);}
+  .cards.g3 .card,.cards.g2 .card{min-width:0;}
+  @media(max-width:560px){.cards.g3{grid-template-columns:repeat(2,1fr);}}
   .c-k{font-size:clamp(9px,2.2vw,10px);color:var(--muted);margin-bottom:3px;line-height:1.4;}
   .c-v{font-size:clamp(19px,5.2vw,25px);font-weight:800;line-height:1.15;}
   .c-u{font-size:clamp(9px,2vw,10px);color:var(--gray);margin-top:2px;line-height:1.45;}
@@ -100,12 +104,17 @@ var Z3=(function(){
 <div class="note"><p>The withdrawal was an administrative action, separate from the legal challenge announced in 2011, and does not establish the company's total holdings in other regions</p></div>
 <script>
 (function(){var C=Z3.C,tip=Z3.tip,RTL=Z3.RTL,F=Z3.F,n=Z3.n;
+function draw(){
 new Chart(document.getElementById("c"),{type:"doughnut",
  data:{labels:["Withdrawn in late 2019","Remaining with the company"],datasets:[{data:[62448,37552],backgroundColor:[C.coral,C.teal],borderColor:C.bg,borderWidth:3}]},
  options:{responsive:true,maintainAspectRatio:false,cutout:"64%",animation:{animateRotate:true,duration:1100},
  plugins:{legend:{position:"bottom",rtl:RTL,labels:{color:C.tc,font:{size:11},boxWidth:10,boxHeight:10,padding:14}},
  tooltip:Object.assign({},tip,{callbacks:{label:function(c){return " "+n(c.raw)+" feddans"+" ("+Math.round(c.raw/1000)+"%)";}}}),
  ctr:{l1:"100,000",l2:"feddans allocated"}}}});
+}
+var done=false;function go(){if(done)return;done=true;draw();}
+try{document.fonts.load('700 12px "'+F+'"').then(function(){return document.fonts.ready;}).then(go,go);}catch(e){go();}
+setTimeout(go,1800);
 })();
 </script>
   <p class="source">Source: Account underlying the legal challenge announced in 2011; Al Mal, January 2020, citing an official circular</p>

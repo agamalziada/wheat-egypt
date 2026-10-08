@@ -20,6 +20,10 @@
   .cards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
   .card{flex:1;min-width:min(100px,44%);border-radius:8px;padding:clamp(9px,2.5vw,12px) clamp(10px,3vw,13px);text-align:center;}
   .card.wide{flex-basis:100%;}
+  .cards.g3{display:grid;grid-template-columns:repeat(3,1fr);}
+  .cards.g2{display:grid;grid-template-columns:repeat(2,1fr);}
+  .cards.g3 .card,.cards.g2 .card{min-width:0;}
+  @media(max-width:560px){.cards.g3{grid-template-columns:repeat(2,1fr);}}
   .c-k{font-size:clamp(9px,2.2vw,10px);color:var(--muted);margin-bottom:3px;line-height:1.4;}
   .c-v{font-size:clamp(19px,5.2vw,25px);font-weight:800;line-height:1.15;}
   .c-u{font-size:clamp(9px,2vw,10px);color:var(--gray);margin-top:2px;line-height:1.45;}
@@ -91,25 +95,30 @@ var Z3=(function(){
   return {C:C,tip:tip,RTL:RTL,F:F,n:function(v){return Number(v).toLocaleString("en-US");}};
 })();
 </script>
-<div class="legend"><span><i style="background:#BA7517"></i>سنة ميلادية: «العربية Business»، 30 ديسمبر 2025</span><span><i style="background:#378ADD"></i>موسم تسويقي، توقع: وزارة الزراعة الأميركية، 28 سبتمبر 2026</span></div>
+<div class="legend"><span><i style="background:#BA7517"></i>سنة ميلادية: «العربية Business»&rlm;، 30 ديسمبر 2025</span><span><i style="background:#378ADD"></i>موسم تسويقي، توقع: وزارة الزراعة الأميركية، 28 سبتمبر 2026</span></div>
 <div class="chart" style="height:clamp(180px,46vw,210px)"><canvas id="c"></canvas></div>
 <p class="col-h" style="margin-top:12px">من يستورد؟ تقديرات د. نادر نور الدين، المستشار السابق لوزير التموين (فبراير 2026)</p>
 <div class="cards" style="margin-bottom:0px">
-  <div class="card" style="background:#edf7f3"><p class="c-k">جهاز مستقبل مصر: قمح التموين والخبز المدعوم</p><p class="c-v" style="color:#1D9E75">~5</p><p class="c-u">ملايين طن سنويًا</p></div>
+  <div class="card" style="background:#edf7f3"><p class="c-k">جهاز مستقبل مصر: قمح التموين والخبز المدعوم</p><p class="c-v" style="color:#1D9E75">5</p><p class="c-u">ملايين طن سنويًا تقريبًا</p></div>
   <div class="card" style="background:#f1efe8"><p class="c-k">القطاع الخاص: احتياجات السوق</p><p class="c-v" style="color:#5f5e5a">+7.5</p><p class="c-u">مليون طن</p></div>
 </div>
 <div class="note"><p>منذ أواخر 2024 انتقل دور رئيسي في الاستيراد الحكومي إلى جهاز مستقبل مصر، وما زالت الهيئة العامة للسلع التموينية طرفًا مشتريًا في اتفاق «الظاهرة» للقمح المستورد (أغسطس 2026)</p></div>
 <script>
 (function(){var C=Z3.C,tip=Z3.tip,RTL=Z3.RTL,F=Z3.F,n=Z3.n;
+function draw(){
 new Chart(document.getElementById("c"),{type:"bar",
  data:{labels:[["2024","سنة ميلادية"],["2025","سنة ميلادية"],["2026/2027","موسم تسويقي (توقع)"]],datasets:[{data:[14.2,13.2,12],backgroundColor:[C.amber,C.amber,C.blue+"99"],borderColor:[C.amber,C.amber,C.blue],borderWidth:[0,0,2],borderDash:[0,0,5],borderRadius:6,maxBarThickness:110}]},
  options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:20}},animation:{duration:1000,easing:"easeOutQuart",delay:function(c){return c.dataIndex*180;}},
  plugins:{legend:{display:false},tooltip:Object.assign({},tip,{callbacks:{label:function(c){return " "+c.raw+" مليون طن";}}}),vl:{fmt:function(v){return v.toFixed(1);}}},
  scales:{x:{reverse:RTL,ticks:{color:C.tc,font:{size:11}},grid:{display:false},border:{color:C.gc}},
  y:{position:RTL?"right":"left",min:0,max:16,ticks:{color:C.tc,font:{size:10}},grid:{color:C.gc},border:{display:false}}}}});
+}
+var done=false;function go(){if(done)return;done=true;draw();}
+try{document.fonts.load('700 12px "'+F+'"').then(function(){return document.fonts.ready;}).then(go,go);}catch(e){go();}
+setTimeout(go,1800);
 })();
 </script>
-  <p class="source">المصدر: «العربية Business»، 30 ديسمبر 2025؛ وزارة الزراعة الأميركية، 28 سبتمبر 2026؛ زاوية ثالثة، 4 فبراير 2026</p>
+  <p class="source">المصدر: «العربية Business»&rlm;، 30 ديسمبر 2025؛ وزارة الزراعة الأميركية، 28 سبتمبر 2026؛ زاوية ثالثة، 4 فبراير 2026</p>
 </div>
 <script>
 (function(){

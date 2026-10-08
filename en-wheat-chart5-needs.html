@@ -20,6 +20,10 @@
   .cards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
   .card{flex:1;min-width:min(100px,44%);border-radius:8px;padding:clamp(9px,2.5vw,12px) clamp(10px,3vw,13px);text-align:center;}
   .card.wide{flex-basis:100%;}
+  .cards.g3{display:grid;grid-template-columns:repeat(3,1fr);}
+  .cards.g2{display:grid;grid-template-columns:repeat(2,1fr);}
+  .cards.g3 .card,.cards.g2 .card{min-width:0;}
+  @media(max-width:560px){.cards.g3{grid-template-columns:repeat(2,1fr);}}
   .c-k{font-size:clamp(9px,2.2vw,10px);color:var(--muted);margin-bottom:3px;line-height:1.4;}
   .c-v{font-size:clamp(19px,5.2vw,25px);font-weight:800;line-height:1.15;}
   .c-u{font-size:clamp(9px,2vw,10px);color:var(--gray);margin-top:2px;line-height:1.45;}
@@ -100,6 +104,7 @@ var Z3=(function(){
 <div class="note"><p>The target concerns wheat for subsidized bread, not the elimination of all wheat imports into Egypt</p></div>
 <script>
 (function(){var C=Z3.C,tip=Z3.tip,RTL=Z3.RTL,F=Z3.F,n=Z3.n;
+function draw(){
 var lab=[["Forecast consumption","(MY 2026/2027)"],["Subsidized-bread needs","(2026/2027 budget)"],["Al Dahra deliveries","(2026 season)"]],fl=["20.3m tonnes","8.6m tonnes","45,000 tonnes"];
 new Chart(document.getElementById("c"),{type:"bar",
  data:{labels:lab,datasets:[{data:[20.3,8.6,0.045],backgroundColor:[C.blue,C.amber,C.coral],borderWidth:0,borderRadius:5,barPercentage:.72,minBarLength:3}]},
@@ -107,6 +112,10 @@ new Chart(document.getElementById("c"),{type:"bar",
  plugins:{legend:{display:false},tooltip:Object.assign({},tip,{callbacks:{label:function(c){return " "+fl[c.dataIndex];}}}),vl:{fmt:function(v,j){return fl[j];}}},
  scales:{x:{reverse:RTL,min:0,max:22,ticks:{color:C.tc,font:{size:10}},grid:{color:C.gc},border:{display:false}},
  y:{position:RTL?"right":"left",ticks:{color:C.ink,font:{size:11}},grid:{display:false},border:{color:C.gc}}}}});
+}
+var done=false;function go(){if(done)return;done=true;draw();}
+try{document.fonts.load('700 12px "'+F+'"').then(function(){return document.fonts.ready;}).then(go,go);}catch(e){go();}
+setTimeout(go,1800);
 })();
 </script>
   <p class="source">Source: US Department of Agriculture, March 2026; Reuters, 5 May 2026; Al Arabiya Business, 6 July 2026</p>

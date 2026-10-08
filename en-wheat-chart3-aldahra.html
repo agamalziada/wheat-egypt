@@ -20,6 +20,10 @@
   .cards{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
   .card{flex:1;min-width:min(100px,44%);border-radius:8px;padding:clamp(9px,2.5vw,12px) clamp(10px,3vw,13px);text-align:center;}
   .card.wide{flex-basis:100%;}
+  .cards.g3{display:grid;grid-template-columns:repeat(3,1fr);}
+  .cards.g2{display:grid;grid-template-columns:repeat(2,1fr);}
+  .cards.g3 .card,.cards.g2 .card{min-width:0;}
+  @media(max-width:560px){.cards.g3{grid-template-columns:repeat(2,1fr);}}
   .c-k{font-size:clamp(9px,2.2vw,10px);color:var(--muted);margin-bottom:3px;line-height:1.4;}
   .c-v{font-size:clamp(19px,5.2vw,25px);font-weight:800;line-height:1.15;}
   .c-u{font-size:clamp(9px,2vw,10px);color:var(--gray);margin-top:2px;line-height:1.45;}
@@ -69,7 +73,7 @@
     <p class="subtitle">Company disclosures from different dates and scopes; they cannot be added up as one season's output</p>
   </div>
   <div class="callout">Wheat grown on the company's Egyptian farms is supplied in Egyptian pounds at the official price, according to the company source quoted by Al Arabiya Business</div>
-<div class="cards" style="margin-bottom:4px">
+<div class="cards g3" style="margin-bottom:4px">
   <div class="card" style="background:#edf7f3"><p class="c-k">Land portfolio</p><p class="c-v" style="color:#1D9E75">67,000</p><p class="c-u">feddans, including more than 40,000 irrigated</p><span class="c-d">Nov 2024</span></div>
   <div class="card" style="background:#eef4fb"><p class="c-k">Farms</p><p class="c-v" style="color:#378ADD">4</p><p class="c-u">in Toshka, East Oweinat and Salhiya</p><span class="c-d">Nov 2024</span></div>
   <div class="card" style="background:#fdf6e8"><p class="c-k">Reported investment</p><p class="c-v" style="color:#BA7517">+250</p><p class="c-u">million dollars since operations began</p><span class="c-d">Nov 2024</span></div>
